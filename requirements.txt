@@ -8,6 +8,12 @@ openpyxl          # Excel metadata reading
 ipfx
 neuroanalysis
 
+# Required by bundled aisynphys/config.py
+PyYAML
+
+# Bundled local library (install after the above)
+# cd aisynphys && pip install -e . && cd ..
+
 # Dimensionality reduction & ML
 umap-learn
 scikit-learn

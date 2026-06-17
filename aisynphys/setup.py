@@ -12,6 +12,14 @@ setup(
     license = "Allen Institute Software License",
     url = "http://github.com/aiephys/aisynphys",
     packages=packages,
+    install_requires=[
+        "numpy",
+        "pandas",
+        "h5py",
+        "PyYAML",
+        "ipfx",
+        "neuroanalysis",
+    ],
     classifiers=[
         "Development Status :: 3 - Alpha",
     ],
