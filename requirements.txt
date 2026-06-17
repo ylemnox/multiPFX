@@ -1,0 +1,14 @@
+# Core scientific stack
+numpy
+pandas
+h5py
+openpyxl          # Excel metadata reading
+
+# Allen Institute ephys libraries
+ipfx
+neuroanalysis
+
+# Dimensionality reduction & ML
+umap-learn
+scikit-learn
+matplotlib

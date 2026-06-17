@@ -32,22 +32,31 @@ multiPFX/
 
 Tested on macOS (Apple Silicon) with Python 3.10 via conda.
 
+| Package | Purpose |
+|---|---|
+| `numpy` | Numerical arrays throughout |
+| `pandas` | Feature DataFrames, Excel parsing |
+| `h5py` | Low-level NWB (HDF5) access |
+| `openpyxl` | Reading the metadata Excel workbook |
+| `ipfx` | Allen Institute spike/sweep feature extractors |
+| `neuroanalysis` | MIES NWB reader (`MiesNwb`, `MiesRecording`) |
+| `umap-learn` | UMAP dimensionality reduction |
+| `scikit-learn` | PCA, t-SNE, RobustScaler, KNNImputer |
+| `matplotlib` | Figure rendering |
+
 ```bash
-# Create environment
+# 1. Create environment
 conda create -n multiPFX python=3.10
 conda activate multiPFX
 
-# Core deps
-pip install ipfx neuroanalysis h5py pandas openpyxl
+# 2. Install all external dependencies
+pip install -r requirements.txt
 
-# Dimensionality reduction
-pip install umap-learn scikit-learn matplotlib
-
-# Install the bundled aisynphys library
+# 3. Install the bundled aisynphys library
 cd aisynphys && pip install -e . && cd ..
 ```
 
-> **Note:** `ipfx` and `neuroanalysis` are Allen Institute packages available on PyPI.
+> `ipfx` and `neuroanalysis` are Allen Institute open-source packages available on PyPI.
 
 ---
 
