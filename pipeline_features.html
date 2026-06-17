@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Intrinsic Feature Table — Cross-Species Pipeline</title>
+<style>
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    margin: 40px;
+  }
+  h1 {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  p.sub {
+    font-size: 12px;
+    color: #000000;
+    margin-top: 2px;
+    margin-bottom: 20px;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 900px;
+  }
+  th {
+    background: #000000;
+    color: #ffffff;
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+  }
+  td {
+    padding: 5px 12px;
+    border-bottom: 1px solid #cccccc;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td {
+    background: #f5f5f5;
+  }
+  tr:hover td {
+    background: #ebebeb;
+  }
+  .section-header td {
+    background: #dddddd;
+    color: #000000;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    padding: 6px 12px;
+    border-bottom: 1px solid #aaaaaa;
+  }
+  .cov-bar {
+    display: inline-block;
+    height: 8px;
+    background: #000000;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  .low { color: #888888; }
+</style>
+</head>
+<body>
+
+<h1>Intrinsic Electrophysiological Features — Current Pipeline</h1>
+<p class="sub">158 cells &nbsp;|&nbsp; 63 features &nbsp;|&nbsp; Species: Mouse (TEa), NHP, Human &nbsp;|&nbsp; Coverage = % cells with non-null value</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Feature name</th>
+      <th>Description</th>
+      <th>Units</th>
+      <th>Coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- SUBTHRESHOLD -->
+    <tr class="section-header"><td colspan="5">SUBTHRESHOLD / PASSIVE (long-square, subthreshold sweeps)</td></tr>
+    <tr><td>1</td><td>v_baseline</td><td>Resting membrane potential</td><td>mV</td><td><span class="cov-bar" style="width:94px"></span>94.3%</td></tr>
+    <tr><td>2</td><td>sag</td><td>Hyperpolarization sag ratio (peak − steady-state / peak deflection)</td><td>—</td><td><span class="cov-bar" style="width:92px"></span>91.8%</td></tr>
+    <tr><td>3</td><td>vm_for_sag</td><td>Membrane potential at which sag was evaluated</td><td>mV</td><td><span class="cov-bar" style="width:92px"></span>91.8%</td></tr>
+    <tr><td>4</td><td>input_resistance</td><td>Input resistance (slope of V–I, peak deflection)</td><td>MΩ</td><td><span class="cov-bar" style="width:89px"></span>89.2%</td></tr>
+    <tr><td>5</td><td>tau</td><td>Membrane time constant (exponential fit to voltage relaxation)</td><td>s</td><td><span class="cov-bar" style="width:87px"></span>86.7%</td></tr>
+
+    <!-- THRESHOLD / F-I -->
+    <tr class="section-header"><td colspan="5">THRESHOLD &amp; F–I CURVE</td></tr>
+    <tr><td>6</td><td>rheobase_i</td><td>Minimum current to evoke a spike (rheobase)</td><td>pA</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>7</td><td>fi_fit_slope</td><td>Slope of firing rate vs. injected current (F–I) curve</td><td>Hz/pA</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+
+    <!-- RHEOBASE SWEEP — FIRING -->
+    <tr class="section-header"><td colspan="5">RHEOBASE SWEEP — FIRING RATE &amp; ISI (minimum spiking sweep)</td></tr>
+    <tr><td>8</td><td>rheobase_avg_rate</td><td>Mean firing rate</td><td>Hz</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>9</td><td>rheobase_stim_amp</td><td>Stimulus current amplitude</td><td>pA</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>10</td><td>rheobase_v_baseline</td><td>Baseline membrane potential before stimulus</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>11</td><td>rheobase_sag</td><td>Sag ratio at this current step</td><td>—</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>12</td><td>rheobase_latency</td><td>Latency to first spike</td><td>s</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>13</td><td>rheobase_first_isi</td><td>First interspike interval</td><td>s</td><td><span class="cov-bar" style="width:42px"></span><span class="low">41.8%</span></td></tr>
+    <tr><td>14</td><td>rheobase_mean_isi</td><td>Mean interspike interval</td><td>s</td><td><span class="cov-bar" style="width:42px"></span><span class="low">41.8%</span></td></tr>
+    <tr><td>15</td><td>rheobase_median_isi</td><td>Median interspike interval</td><td>s</td><td><span class="cov-bar" style="width:42px"></span><span class="low">41.8%</span></td></tr>
+    <tr><td>16</td><td>rheobase_isi_cv</td><td>ISI coefficient of variation</td><td>—</td><td><span class="cov-bar" style="width:42px"></span><span class="low">41.8%</span></td></tr>
+    <tr><td>17</td><td>rheobase_adapt</td><td>Spike-frequency adaptation index</td><td>—</td><td><span class="cov-bar" style="width:20px"></span><span class="low">20.3%</span></td></tr>
+
+    <!-- RHEOBASE SWEEP — AP WAVEFORM -->
+    <tr class="section-header"><td colspan="5">RHEOBASE SWEEP — ACTION POTENTIAL WAVEFORM (first spike)</td></tr>
+    <tr><td>18</td><td>rheobase_threshold_v</td><td>Spike threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>19</td><td>rheobase_peak_v</td><td>Spike peak voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>20</td><td>rheobase_peak_deltav</td><td>Peak voltage − threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>21</td><td>rheobase_upstroke</td><td>Maximum upstroke rate (max dV/dt)</td><td>mV/ms</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>22</td><td>rheobase_downstroke</td><td>Maximum downstroke rate (min dV/dt)</td><td>mV/ms</td><td><span class="cov-bar" style="width:83px"></span>82.9%</td></tr>
+    <tr><td>23</td><td>rheobase_upstroke_downstroke_ratio</td><td>Upstroke / |downstroke| ratio</td><td>—</td><td><span class="cov-bar" style="width:83px"></span>82.9%</td></tr>
+    <tr><td>24</td><td>rheobase_width</td><td>Spike half-width</td><td>s</td><td><span class="cov-bar" style="width:83px"></span>82.9%</td></tr>
+    <tr><td>25</td><td>rheobase_fast_trough_v</td><td>Fast after-hyperpolarization (AHP) trough voltage</td><td>mV</td><td><span class="cov-bar" style="width:83px"></span>82.9%</td></tr>
+    <tr><td>26</td><td>rheobase_fast_trough_deltav</td><td>AHP trough − threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:83px"></span>82.9%</td></tr>
+    <tr><td>27</td><td>rheobase_adp_v</td><td>After-depolarization voltage</td><td>mV</td><td><span class="cov-bar" style="width:1px"></span><span class="low">0.6%</span></td></tr>
+
+    <!-- HERO SWEEP — FIRING -->
+    <tr class="section-header"><td colspan="5">HERO SWEEP — FIRING RATE &amp; ISI (~2× rheobase current)</td></tr>
+    <tr><td>28</td><td>hero_avg_rate</td><td>Mean firing rate</td><td>Hz</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>29</td><td>hero_stim_amp</td><td>Stimulus current amplitude</td><td>pA</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>30</td><td>hero_v_baseline</td><td>Baseline membrane potential before stimulus</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>31</td><td>hero_sag</td><td>Sag ratio at this current step</td><td>—</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>32</td><td>hero_latency</td><td>Latency to first spike</td><td>s</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>33</td><td>hero_first_isi</td><td>First interspike interval</td><td>s</td><td><span class="cov-bar" style="width:73px"></span>73.4%</td></tr>
+    <tr><td>34</td><td>hero_mean_isi</td><td>Mean interspike interval</td><td>s</td><td><span class="cov-bar" style="width:73px"></span>73.4%</td></tr>
+    <tr><td>35</td><td>hero_median_isi</td><td>Median interspike interval</td><td>s</td><td><span class="cov-bar" style="width:73px"></span>73.4%</td></tr>
+    <tr><td>36</td><td>hero_isi_cv</td><td>ISI coefficient of variation</td><td>—</td><td><span class="cov-bar" style="width:73px"></span>73.4%</td></tr>
+    <tr><td>37</td><td>hero_adapt</td><td>Spike-frequency adaptation index</td><td>—</td><td><span class="cov-bar" style="width:66px"></span>65.8%</td></tr>
+
+    <!-- HERO SWEEP — AP WAVEFORM -->
+    <tr class="section-header"><td colspan="5">HERO SWEEP — ACTION POTENTIAL WAVEFORM (first spike)</td></tr>
+    <tr><td>38</td><td>hero_threshold_v</td><td>Spike threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>39</td><td>hero_peak_v</td><td>Spike peak voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>40</td><td>hero_peak_deltav</td><td>Peak voltage − threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>41</td><td>hero_upstroke</td><td>Maximum upstroke rate (max dV/dt)</td><td>mV/ms</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>42</td><td>hero_downstroke</td><td>Maximum downstroke rate (min dV/dt)</td><td>mV/ms</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>43</td><td>hero_upstroke_downstroke_ratio</td><td>Upstroke / |downstroke| ratio</td><td>—</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>44</td><td>hero_width</td><td>Spike half-width</td><td>s</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>45</td><td>hero_fast_trough_v</td><td>Fast AHP trough voltage</td><td>mV</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>46</td><td>hero_fast_trough_deltav</td><td>AHP trough − threshold voltage</td><td>mV</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>47</td><td>hero_adp_v</td><td>After-depolarization voltage</td><td>mV</td><td><span class="cov-bar" style="width:2px"></span><span class="low">1.9%</span></td></tr>
+
+    <!-- CROSS-SWEEP ADAPTATION -->
+    <tr class="section-header"><td colspan="5">CROSS-SWEEP ADAPTATION (computed across all spiking sweeps)</td></tr>
+    <tr><td>48</td><td>adapt_mean</td><td>Mean adaptation index across all spiking sweeps</td><td>—</td><td><span class="cov-bar" style="width:80px"></span>80.4%</td></tr>
+    <tr><td>49</td><td>isi_cv_mean</td><td>Mean ISI coefficient of variation across spiking sweeps</td><td>—</td><td><span class="cov-bar" style="width:82px"></span>81.6%</td></tr>
+    <tr><td>50</td><td>isi_adapt_ratio</td><td>Adapt index: last spiking sweep / first spiking sweep</td><td>—</td><td><span class="cov-bar" style="width:20px"></span><span class="low">20.3%</span></td></tr>
+    <tr><td>51</td><td>upstroke_adapt_ratio</td><td>Upstroke rate: last sweep / first sweep (first spike)</td><td>—</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>52</td><td>downstroke_adapt_ratio</td><td>Downstroke rate: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:81px"></span>81.0%</td></tr>
+    <tr><td>53</td><td>upstroke_downstroke_ratio_adapt_ratio</td><td>Upstroke/downstroke ratio: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:81px"></span>81.0%</td></tr>
+    <tr><td>54</td><td>width_adapt_ratio</td><td>Spike width: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:81px"></span>81.0%</td></tr>
+    <tr><td>55</td><td>fast_trough_v_adapt_ratio</td><td>Fast AHP voltage: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:81px"></span>81.0%</td></tr>
+    <tr><td>56</td><td>peak_v_adapt_ratio</td><td>Spike peak voltage: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+    <tr><td>57</td><td>threshold_v_adapt_ratio</td><td>Spike threshold voltage: last sweep / first sweep</td><td>—</td><td><span class="cov-bar" style="width:84px"></span>84.2%</td></tr>
+
+    <!-- CHIRP -->
+    <tr class="section-header"><td colspan="5">CHIRP / IMPEDANCE (sinusoidal current, 1–15 Hz)</td></tr>
+    <tr><td>58</td><td>peak_ratio_chirp</td><td>Peak impedance / mean impedance (resonance strength)</td><td>—</td><td><span class="cov-bar" style="width:32px"></span><span class="low">31.6%</span></td></tr>
+    <tr><td>59</td><td>peak_freq_chirp</td><td>Frequency at peak impedance (resonance frequency)</td><td>Hz</td><td><span class="cov-bar" style="width:49px"></span>48.7%</td></tr>
+    <tr><td>60</td><td>z_max_chirp</td><td>Maximum impedance magnitude</td><td>MΩ</td><td><span class="cov-bar" style="width:49px"></span>48.7%</td></tr>
+    <tr><td>61</td><td>z_min_chirp</td><td>Minimum impedance magnitude</td><td>MΩ</td><td><span class="cov-bar" style="width:49px"></span>48.7%</td></tr>
+    <tr><td>62</td><td>z_mean_chirp</td><td>Mean impedance magnitude (low-frequency baseline)</td><td>MΩ</td><td><span class="cov-bar" style="width:49px"></span>48.7%</td></tr>
+    <tr><td>63</td><td>phase_at_peak_chirp</td><td>Phase angle at impedance peak (inductive = active resonance)</td><td>rad</td><td><span class="cov-bar" style="width:32px"></span><span class="low">31.6%</span></td></tr>
+
+  </tbody>
+</table>
+
+<p style="margin-top:18px; font-size:11px; color:#000000;">
+  Coverage bar = 1 px per 1%. Grey text = coverage &lt;50%.
+  ISI features at rheobase are low-coverage because most cells fire only 1–2 spikes at rheobase.
+  Chirp features are low-coverage because the chirp protocol was not run in all sessions.
+</p>
+
+</body>
+</html>

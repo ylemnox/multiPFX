@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feature Comparison: Notebook vs. Current Pipeline</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #ffffff;
+    color: #000000;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    padding: 48px 56px 64px;
+  }
+
+  h1 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 40px;
+  }
+
+  /* ── Section label ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #000000;
+    padding: 6px 14px;
+    margin-top: 32px;
+    margin-bottom: 0;
+  }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    max-width: 880px;
+    border-collapse: collapse;
+  }
+
+  thead tr {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  thead th {
+    padding: 8px 14px;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    text-align: left;
+  }
+
+  thead th.center { text-align: center; }
+
+  tbody tr:nth-child(odd)  { background: #ffffff; }
+  tbody tr:nth-child(even) { background: #f4f4f4; }
+
+  tbody td {
+    padding: 6px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 12px;
+    color: #000000;
+    vertical-align: middle;
+  }
+
+  td.center { text-align: center; }
+
+  /* Status symbols */
+  .yes  { font-size: 14px; color: #000000; font-weight: bold; }
+  .no   { font-size: 14px; color: #aaaaaa; }
+  .note { font-size: 11px; color: #555555; font-style: italic; }
+
+  /* Coverage pill */
+  .cov {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: #000000;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+  .cov.low {
+    background: #cccccc;
+    color: #444444;
+  }
+  .cov.none {
+    background: transparent;
+    color: #aaaaaa;
+    font-weight: normal;
+  }
+
+  /* Our name monospace */
+  code {
+    font-family: 'Courier New', monospace;
+    font-size: 11px;
+    background: #efefef;
+    padding: 1px 5px;
+    border-radius: 3px;
+    color: #000000;
+  }
+
+  /* Summary table */
+  .summary-wrap {
+    margin-top: 40px;
+    max-width: 640px;
+  }
+
+  .summary-wrap h2 {
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .summary table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .summary thead tr {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  .summary thead th {
+    padding: 7px 14px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-align: center;
+  }
+
+  .summary thead th:first-child { text-align: left; }
+
+  .summary tbody tr:nth-child(odd)  { background: #ffffff; }
+  .summary tbody tr:nth-child(even) { background: #f4f4f4; }
+
+  .summary tbody td {
+    padding: 6px 14px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .summary tbody td:first-child { text-align: left; }
+
+  .summary tbody tr.total td {
+    font-weight: bold;
+    border-top: 2px solid #000000;
+    border-bottom: none;
+  }
+
+  .legend {
+    margin-top: 20px;
+    font-size: 11px;
+    color: #444444;
+    line-height: 1.8;
+  }
+</style>
+</head>
+<body>
+
+<h1>Feature Comparison: Notebook vs. Current Pipeline</h1>
+<p class="subtitle">
+  Notebook = features extracted by <em>synphys_culture_classifier.ipynb</em> via <code>features_from_nwb()</code> (original aisynphys) &nbsp;|&nbsp;
+  Pipeline = our revised extraction script &nbsp;|&nbsp;
+  Coverage = % of 158 cells with non-null value
+</p>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SUBTHRESHOLD
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Subthreshold / Passive</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Resting membrane potential</td>     <td class="center yes">✓</td><td class="center yes">✓</td><td><code>v_baseline</code></td>         <td class="center"><span class="cov">94%</span></td><td></td></tr>
+    <tr><td>Sag ratio</td>                      <td class="center yes">✓</td><td class="center yes">✓</td><td><code>sag</code></td>                  <td class="center"><span class="cov">92%</span></td><td></td></tr>
+    <tr><td>Vm at sag measurement</td>          <td class="center yes">✓</td><td class="center yes">✓</td><td><code>vm_for_sag</code></td>           <td class="center"><span class="cov">92%</span></td><td></td></tr>
+    <tr><td>Input resistance</td>               <td class="center yes">✓</td><td class="center yes">✓</td><td><code>input_resistance</code></td>     <td class="center"><span class="cov">89%</span></td><td></td></tr>
+    <tr><td>Membrane time constant</td>         <td class="center yes">✓</td><td class="center yes">✓</td><td><code>tau</code></td>                  <td class="center"><span class="cov">87%</span></td><td></td></tr>
+    <tr><td>Steady-state input resistance</td>  <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td>  <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Time to sag peak (hyperpol.)</td>   <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td>  <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Depolarizing rebound sag</td>       <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td>  <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Time to depolarizing sag peak</td>  <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td>  <td class="center"><span class="cov none">—</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     THRESHOLD
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Threshold &amp; F–I Curve</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Rheobase current</td>  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_i</code></td>    <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>F–I slope</td>         <td class="center yes">✓</td><td class="center yes">✓</td><td><code>fi_fit_slope</code></td>  <td class="center"><span class="cov">84%</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     RHEOBASE — FIRING
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Rheobase Sweep — Firing Rate &amp; ISI</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Mean firing rate</td>      <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_avg_rate</code></td>   <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>First-spike latency</td>   <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_latency</code></td>    <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Mean ISI</td>              <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_mean_isi</code></td>   <td class="center"><span class="cov low">42%</span></td><td class="note">≥2 spikes required</td></tr>
+    <tr><td>First ISI</td>             <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_first_isi</code></td>  <td class="center"><span class="cov low">42%</span></td><td class="note">≥2 spikes required</td></tr>
+    <tr><td>ISI CV</td>                <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_isi_cv</code></td>     <td class="center"><span class="cov low">42%</span></td><td class="note">≥2 spikes required</td></tr>
+    <tr><td>Adaptation index</td>      <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_adapt</code></td>     <td class="center"><span class="cov low">20%</span></td><td class="note">≥3 spikes required</td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     RHEOBASE — AP WAVEFORM
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Rheobase Sweep — AP Waveform (first spike)</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Threshold voltage</td>            <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_threshold_v</code></td>               <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Upstroke rate</td>                <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_upstroke</code></td>                  <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Downstroke rate</td>              <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_downstroke</code></td>                <td class="center"><span class="cov">83%</span></td><td></td></tr>
+    <tr><td>Upstroke / downstroke ratio</td>  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_upstroke_downstroke_ratio</code></td> <td class="center"><span class="cov">83%</span></td><td></td></tr>
+    <tr><td>Spike width</td>                  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_width</code></td>                     <td class="center"><span class="cov">83%</span></td><td></td></tr>
+    <tr><td>Suprathreshold spike width</td>   <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">requires different ipfx path</td>       <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Peak ΔV (peak − threshold)</td>   <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_peak_deltav</code></td>               <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Fast trough voltage (1st spike)</td><td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_fast_trough_v</code></td>           <td class="center"><span class="cov">83%</span></td><td></td></tr>
+    <tr><td>Fast trough ΔV</td>               <td class="center yes">✓</td><td class="center yes">✓</td><td><code>rheobase_fast_trough_deltav</code></td>        <td class="center"><span class="cov">83%</span></td><td></td></tr>
+    <tr><td>Trough ΔV (slow trough)</td>      <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">slow trough not extracted</td>          <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>ADP voltage (last spike)</td>     <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">first spike only — 0.6% coverage</td>  <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Fast trough V of last spike</td>  <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">last spike not implemented</td>        <td class="center"><span class="cov none">—</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     HERO — FIRING
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Hero Sweep — Firing Rate &amp; ISI (~2× Rheobase)</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Mean firing rate</td>          <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_avg_rate</code></td>    <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>First-spike latency</td>       <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_latency</code></td>     <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Mean ISI</td>                  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_mean_isi</code></td>    <td class="center"><span class="cov">73%</span></td><td></td></tr>
+    <tr><td>Median ISI</td>                <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_median_isi</code></td>  <td class="center"><span class="cov">73%</span></td><td></td></tr>
+    <tr><td>First ISI</td>                 <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_first_isi</code></td>   <td class="center"><span class="cov">73%</span></td><td></td></tr>
+    <tr><td>1 / First ISI (inv.)</td>      <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">we store first_isi directly</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>ISI CV</td>                    <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_isi_cv</code></td>      <td class="center"><span class="cov">73%</span></td><td></td></tr>
+    <tr><td>Adaptation index</td>          <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_adapt</code></td>      <td class="center"><span class="cov">66%</span></td><td></td></tr>
+    <tr><td>AHP delay ratio (hero)</td>    <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">requires separate analysis</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>AHP delay ratio (5-spike)</td> <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">requires separate analysis</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     HERO — AP WAVEFORM
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Hero Sweep — AP Waveform (first spike)</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Threshold voltage</td>           <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_threshold_v</code></td>               <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Upstroke rate</td>               <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_upstroke</code></td>                  <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Downstroke rate</td>             <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_downstroke</code></td>                <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>Upstroke / downstroke ratio</td> <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_upstroke_downstroke_ratio</code></td> <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>Spike width</td>                 <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_width</code></td>                     <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>Suprathreshold spike width</td>  <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">requires different ipfx path</td>   <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Peak ΔV</td>                     <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_peak_deltav</code></td>               <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Fast trough voltage</td>         <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_fast_trough_v</code></td>             <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>Fast trough ΔV</td>              <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_fast_trough_deltav</code></td>        <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>Trough ΔV (slow trough)</td>     <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">slow trough not extracted</td>      <td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>ADP voltage</td>                 <td class="center yes">✓</td><td class="center yes">✓</td><td><code>hero_adp_v</code></td>                     <td class="center"><span class="cov low">2%</span></td><td class="note">first spike only</td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CROSS-SWEEP ADAPTATION
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Cross-Sweep Adaptation Ratios</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Mean adaptation</td>                  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>adapt_mean</code></td>                              <td class="center"><span class="cov">80%</span></td><td></td></tr>
+    <tr><td>Mean ISI CV</td>                       <td class="center yes">✓</td><td class="center yes">✓</td><td><code>isi_cv_mean</code></td>                             <td class="center"><span class="cov">82%</span></td><td></td></tr>
+    <tr><td>ISI adaptation ratio</td>              <td class="center yes">✓</td><td class="center yes">✓</td><td><code>isi_adapt_ratio</code></td>                        <td class="center"><span class="cov low">20%</span></td><td class="note">needs ≥2 spiking sweeps</td></tr>
+    <tr><td>Upstroke adapt ratio</td>              <td class="center yes">✓</td><td class="center yes">✓</td><td><code>upstroke_adapt_ratio</code></td>                   <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Downstroke adapt ratio</td>            <td class="center yes">✓</td><td class="center yes">✓</td><td><code>downstroke_adapt_ratio</code></td>                 <td class="center"><span class="cov">81%</span></td><td></td></tr>
+    <tr><td>Upstroke / downstroke adapt ratio</td> <td class="center yes">✓</td><td class="center yes">✓</td><td><code>upstroke_downstroke_ratio_adapt_ratio</code></td> <td class="center"><span class="cov">81%</span></td><td></td></tr>
+    <tr><td>Width adapt ratio</td>                 <td class="center yes">✓</td><td class="center yes">✓</td><td><code>width_adapt_ratio</code></td>                      <td class="center"><span class="cov">81%</span></td><td></td></tr>
+    <tr><td>Fast trough V adapt ratio</td>         <td class="center yes">✓</td><td class="center yes">✓</td><td><code>fast_trough_v_adapt_ratio</code></td>             <td class="center"><span class="cov">81%</span></td><td></td></tr>
+    <tr><td>Peak V adapt ratio</td>                <td class="center yes">✓</td><td class="center yes">✓</td><td><code>peak_v_adapt_ratio</code></td>                    <td class="center"><span class="cov">84%</span></td><td></td></tr>
+    <tr><td>Threshold V adapt ratio</td>           <td class="center yes">✓</td><td class="center yes">✓</td><td><code>threshold_v_adapt_ratio</code></td>               <td class="center"><span class="cov">84%</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     CHIRP
+═══════════════════════════════════════════════════════════════════ -->
+<div class="section-label">Chirp / Impedance (sinusoidal current, 1–15 Hz)</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%">Feature</th>
+      <th class="center" style="width:10%">Notebook</th>
+      <th class="center" style="width:10%">Pipeline</th>
+      <th style="width:22%">Our name</th>
+      <th class="center" style="width:10%">Coverage</th>
+      <th style="width:10%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Peak impedance ratio (resonance strength)</td> <td class="center yes">✓</td><td class="center yes">✓</td><td><code>peak_ratio_chirp</code></td>   <td class="center"><span class="cov low">32%</span></td><td class="note">chirp not run in all sessions</td></tr>
+    <tr><td>Peak resonance frequency</td>                  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>peak_freq_chirp</code></td>    <td class="center"><span class="cov low">49%</span></td><td></td></tr>
+    <tr><td>Phase at impedance peak</td>                   <td class="center yes">✓</td><td class="center yes">✓</td><td><code>phase_at_peak_chirp</code></td><td class="center"><span class="cov low">32%</span></td><td></td></tr>
+    <tr><td>Peak impedance magnitude</td>                  <td class="center yes">✓</td><td class="center yes">✓</td><td><code>z_max_chirp</code></td>        <td class="center"><span class="cov low">49%</span></td><td></td></tr>
+    <tr><td>Low-frequency impedance (mean)</td>            <td class="center yes">✓</td><td class="center yes">✓</td><td><code>z_mean_chirp</code></td>       <td class="center"><span class="cov low">49%</span></td><td></td></tr>
+    <tr><td>Minimum impedance</td>                         <td class="center no">✗</td> <td class="center yes">✓</td><td><code>z_min_chirp</code></td>        <td class="center"><span class="cov low">49%</span></td><td class="note">new in our pipeline</td></tr>
+    <tr><td>Sync frequency</td>                            <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>3-dB frequency</td>                            <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Phase at low frequency</td>                    <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+    <tr><td>Total inductive phase</td>                     <td class="center yes">✓</td><td class="center no">✗</td> <td class="note">not in current ipfx</td><td class="center"><span class="cov none">—</span></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ══════════════════════════════════════════════════════════════════
+     SUMMARY
+═══════════════════════════════════════════════════════════════════ -->
+<div class="summary-wrap">
+  <h2>Summary by Category</h2>
+  <div class="summary">
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Notebook</th>
+          <th>Pipeline ✓</th>
+          <th>Still missing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Subthreshold / passive</td>    <td>9</td>  <td>5</td>  <td>4</td></tr>
+        <tr><td>Threshold &amp; F–I</td>       <td>2</td>  <td>2</td>  <td>0</td></tr>
+        <tr><td>Rheobase firing / ISI</td>     <td>6</td>  <td>6</td>  <td>0</td></tr>
+        <tr><td>Rheobase AP waveform</td>      <td>12</td> <td>8</td>  <td>4</td></tr>
+        <tr><td>Hero firing / ISI</td>         <td>10</td> <td>8</td>  <td>2</td></tr>
+        <tr><td>Hero AP waveform</td>          <td>11</td> <td>9</td>  <td>2</td></tr>
+        <tr><td>Cross-sweep adaptation</td>    <td>10</td> <td>10</td> <td>0</td></tr>
+        <tr><td>Chirp / impedance</td>         <td>10</td> <td>6</td>  <td>4</td></tr>
+        <tr class="total"><td>Total</td>       <td>70</td> <td>54</td> <td>16</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p class="legend">
+  ✓ = extracted &nbsp;|&nbsp; ✗ = not extracted &nbsp;|&nbsp; Dark pill = coverage ≥50% &nbsp;|&nbsp; Grey pill = coverage &lt;50% &nbsp;|&nbsp; — = not applicable<br>
+  Low-coverage ISI features (rheobase): most cells fire only 1–2 spikes at rheobase — ISI statistics require ≥2 spikes.<br>
+  Chirp features: protocol was not run in all recording sessions (NHP, Human cohorts).<br>
+  Missing features: require a different ipfx version (sag_depol, IR_ss, width_suprathresh) or last-spike extraction (trough_deltav, fast_trough_v_last) or advanced chirp analysis (sync_freq, 3db_freq).
+</p>
+
+</body>
+</html>
