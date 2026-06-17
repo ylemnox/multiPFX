@@ -106,9 +106,55 @@ Comparison against the Allen Institute reference notebook: see [`feature_compari
 
 ---
 
+## Data format requirements
+
+The pipeline makes three assumptions about how your data is organized. Mismatches produce empty output with no error, so read carefully.
+
+### 1. NWB filenames
+
+Files must start with a timestamp in the format `YYYY_MM_DD_HHMMSS`:
+
+```
+2023_04_09_123456_ITC1600_Dev_0-compressed.nwb   ✓
+2023_04_09_123456-compressed.nwb                 ✓
+recording_session1.nwb                           ✗  (won't be found)
+```
+
+### 2. Metadata Excel — column 0 format
+
+The first column of each sheet must contain entries that include the timestamp and AD channel numbers:
+
+```
+2023_04_09_123456_AD0               one cell, channel 0
+2023_04_09_123456_AD0_AD2           one cell, channels 0 and 2
+```
+
+### 3. Sheet naming convention
+
+Sheet names drive species and E/I inference automatically:
+
+| To get... | Sheet name must contain... | Example |
+|---|---|---|
+| Mouse | `mouse` (case-insensitive) | `Mouse E`, `mouse_exc` |
+| NHP | `nhp` | `NHP E2I`, `nhp_inh` |
+| Human | `human` | `Human E`, `Human_I` |
+| Inhibitory | end with ` I`, contain ` I `, or contain `e to i` | `Mouse I`, `NHP E2I` |
+| Excitatory | anything else | `Mouse E`, `Human` |
+
+Sheets that don't match any species keyword are labeled `unknown` and excluded from plots.
+
+---
+
 ## NWB compatibility
 
-The extraction pipeline handles both NWB 1.x and NWB 2.x MIES files via monkey-patching of `neuroanalysis.MiesNwb`. It also supports oodDAQ (optimized-overlap dDAQ) acquisition, where sweeps from different channels are interleaved and contain inactive zero-voltage periods.
+The dataset contains two NWB versions, both handled transparently:
+
+| Folder | NWB version | Notes |
+|---|---|---|
+| `nwb_v1/` | **NWB 1.0.5** | `nwb_version` stored as HDF5 dataset; sweeps under `acquisition/timeseries` |
+| `nwb_v2/` | **NWB 2.9.0** | `nwb_version` stored as HDF5 attribute; sweeps under `acquisition/data_NNNNN_AD0` |
+
+When both versions exist for the same timestamp, v1 is preferred. The pipeline monkey-patches `neuroanalysis.MiesNwb` to bridge the structural differences between versions and to support oodDAQ acquisition (optimized-overlap dDAQ), where channels are interleaved within a sweep and contain inactive zero-voltage periods.
 
 ---
 
