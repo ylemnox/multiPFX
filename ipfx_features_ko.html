@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPFX 추출 특성 설명</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #ffffff;
+    color: #111111;
+    padding: 2.5rem 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+  }
+  .subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 2.5rem;
+  }
+  .section { margin-bottom: 2rem; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    background: #f5f5f3;
+    border: 0.5px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    border-bottom: none;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .section-count {
+    font-size: 12px;
+    color: #999;
+    margin-left: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 0.5px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+  }
+  tr { border-bottom: 0.5px solid #e8e8e8; }
+  tr:last-child { border-bottom: none; }
+  td {
+    padding: 10px 14px;
+    font-size: 13px;
+    vertical-align: middle;
+    line-height: 1.6;
+  }
+  td.name {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-size: 12px;
+    color: #111;
+    width: 240px;
+    white-space: nowrap;
+    border-right: 0.5px solid #e8e8e8;
+  }
+  td.desc { color: #444; }
+</style>
+</head>
+<body>
+
+<h1>IPFX 추출 특성 설명</h1>
+<p class="subtitle">multiPFX 파이프라인에서 추출되는 44개 고유 내재적 전기생리학 특성 — 종별 분석에 사용</p>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Subthreshold / Passive</span>
+    <span class="section-count">4개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">sag</td><td class="desc">과분극 전류 주입 시 나타나는 전압 처짐 비율. Ih(과분극 활성화 양이온 전류) 크기를 반영</td></tr>
+    <tr><td class="name">vm_for_sag</td><td class="desc">Sag 측정이 이루어진 기준 막전위 (mV)</td></tr>
+    <tr><td class="name">input_resistance</td><td class="desc">세포막의 입력 저항 (MΩ). 작을수록 전류 유입에 덜 민감한 세포</td></tr>
+    <tr><td class="name">tau</td><td class="desc">막 시간 상수 (ms). 전압 변화가 안정 상태의 63%에 도달하는 데 걸리는 시간</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Threshold / F-I curve</span>
+    <span class="section-count">2개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">rheobase_i</td><td class="desc">활동전위를 유발하는 최소 전류 (pA). 세포 흥분성의 기본 지표</td></tr>
+    <tr><td class="name">fi_fit_slope</td><td class="desc">주파수-전류(F-I) 곡선의 기울기 (Hz/pA). 전류 증가에 따른 발화율 증가 속도</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Rheobase sweep — 발화 특성</span>
+    <span class="section-count">6개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">rheobase_avg_rate</td><td class="desc">역치 전류(rheobase)에서의 평균 발화율 (Hz)</td></tr>
+    <tr><td class="name">rheobase_latency</td><td class="desc">전류 주입 시작 후 첫 번째 활동전위까지의 지연 시간 (ms)</td></tr>
+    <tr><td class="name">rheobase_first_isi</td><td class="desc">첫 번째와 두 번째 활동전위 사이의 간격 (ms, Inter-Spike Interval)</td></tr>
+    <tr><td class="name">rheobase_mean_isi</td><td class="desc">스윕 내 모든 ISI의 평균값 (ms)</td></tr>
+    <tr><td class="name">rheobase_isi_cv</td><td class="desc">ISI의 변동계수 (표준편차 / 평균). 값이 클수록 불규칙한 발화</td></tr>
+    <tr><td class="name">rheobase_adapt</td><td class="desc">적응 지수. 발화가 시간에 따라 느려지는 정도 (accommodation)</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Rheobase sweep — AP 파형</span>
+    <span class="section-count">8개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">rheobase_threshold_v</td><td class="desc">활동전위 시작점의 막전위 역치 (mV)</td></tr>
+    <tr><td class="name">rheobase_upstroke</td><td class="desc">활동전위 상승 속도 최댓값 (mV/ms, dV/dt). Na⁺ 채널 활성화 강도 반영</td></tr>
+    <tr><td class="name">rheobase_downstroke</td><td class="desc">활동전위 하강 속도 최솟값 (mV/ms, dV/dt). K⁺ 채널 활성화 강도 반영</td></tr>
+    <tr><td class="name">rheobase_upstroke_downstroke_ratio</td><td class="desc">상승 속도 / 하강 속도 비율. Na⁺ 대 K⁺ 채널 균형의 지표</td></tr>
+    <tr><td class="name">rheobase_width</td><td class="desc">활동전위 반폭 (ms, half-width). 피크 전압의 절반 높이에서 측정</td></tr>
+    <tr><td class="name">rheobase_peak_deltav</td><td class="desc">피크 전압과 역치 전압의 차이 (mV). 활동전위 진폭</td></tr>
+    <tr><td class="name">rheobase_fast_trough_v</td><td class="desc">빠른 후과분극(fast AHP)의 절대 전압값 (mV)</td></tr>
+    <tr><td class="name">rheobase_fast_trough_deltav</td><td class="desc">후과분극 전압과 역치 전압의 차이 (mV). AHP 깊이를 역치 기준으로 표현</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Hero sweep — 발화 특성</span>
+    <span class="section-count">6개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">hero_avg_rate</td><td class="desc">고강도 전류(hero sweep)에서의 평균 발화율 (Hz)</td></tr>
+    <tr><td class="name">hero_latency</td><td class="desc">고강도 전류 주입 후 첫 번째 활동전위까지의 지연 시간 (ms)</td></tr>
+    <tr><td class="name">hero_first_isi</td><td class="desc">첫 번째 ISI (ms)</td></tr>
+    <tr><td class="name">hero_mean_isi</td><td class="desc">평균 ISI (ms)</td></tr>
+    <tr><td class="name">hero_isi_cv</td><td class="desc">ISI 변동계수. 고강도 발화에서의 규칙성 지표</td></tr>
+    <tr><td class="name">hero_adapt</td><td class="desc">고강도 전류에서의 적응 지수. 스파이크 주파수 감소 정도</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Hero sweep — AP 파형</span>
+    <span class="section-count">8개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">hero_threshold_v</td><td class="desc">고강도 스윕 첫 번째 활동전위의 역치 전압 (mV)</td></tr>
+    <tr><td class="name">hero_upstroke</td><td class="desc">상승 속도 최댓값 (mV/ms)</td></tr>
+    <tr><td class="name">hero_downstroke</td><td class="desc">하강 속도 최솟값 (mV/ms)</td></tr>
+    <tr><td class="name">hero_upstroke_downstroke_ratio</td><td class="desc">상승/하강 비율</td></tr>
+    <tr><td class="name">hero_width</td><td class="desc">활동전위 반폭 (ms)</td></tr>
+    <tr><td class="name">hero_peak_deltav</td><td class="desc">피크와 역치의 전압 차이 (mV)</td></tr>
+    <tr><td class="name">hero_fast_trough_v</td><td class="desc">빠른 후과분극의 절대 전압 (mV)</td></tr>
+    <tr><td class="name">hero_fast_trough_deltav</td><td class="desc">후과분극과 역치의 전압 차이 (mV)</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Cross-sweep 적응 비율</span>
+    <span class="section-count">9개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">adapt_mean</td><td class="desc">모든 발화 스윕의 적응 지수 평균. 전반적인 주파수 적응 크기</td></tr>
+    <tr><td class="name">isi_cv_mean</td><td class="desc">모든 발화 스윕의 ISI 변동계수 평균</td></tr>
+    <tr><td class="name">upstroke_adapt_ratio</td><td class="desc">마지막 스윕 / 첫 번째 스윕의 상승 속도 비율. 반복 발화에 따른 Na⁺ 채널 불활성화 반영</td></tr>
+    <tr><td class="name">downstroke_adapt_ratio</td><td class="desc">마지막 / 첫 번째 스윕의 하강 속도 비율</td></tr>
+    <tr><td class="name">upstroke_downstroke_ratio_adapt_ratio</td><td class="desc">상승/하강 비율의 스윕 간 변화량</td></tr>
+    <tr><td class="name">width_adapt_ratio</td><td class="desc">마지막 / 첫 번째 스윕의 활동전위 폭 비율. 채널 불활성화에 따른 파형 확장 반영</td></tr>
+    <tr><td class="name">fast_trough_v_adapt_ratio</td><td class="desc">후과분극 전압의 스윕 간 비율</td></tr>
+    <tr><td class="name">peak_v_adapt_ratio</td><td class="desc">피크 전압의 스윕 간 비율</td></tr>
+    <tr><td class="name">threshold_v_adapt_ratio</td><td class="desc">역치 전압의 스윕 간 비율. 역치 상승(threshold accommodation) 반영</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <span class="section-title">Chirp / 임피던스</span>
+    <span class="section-count">5개 특성</span>
+  </div>
+  <table>
+    <tr><td class="name">peak_ratio_chirp</td><td class="desc">공명 주파수에서의 임피던스 / 전체 평균 임피던스 비율. 공명 강도 지표</td></tr>
+    <tr><td class="name">peak_freq_chirp</td><td class="desc">임피던스가 최대가 되는 주파수 (Hz). 세포의 고유 공명 주파수</td></tr>
+    <tr><td class="name">z_max_chirp</td><td class="desc">최대 임피던스 크기 (MΩ)</td></tr>
+    <tr><td class="name">z_mean_chirp</td><td class="desc">전체 주파수 범위의 평균 임피던스 (MΩ)</td></tr>
+    <tr><td class="name">phase_at_peak_chirp</td><td class="desc">공명 주파수에서 전류 대비 전압의 위상 (rad). 양수이면 전압이 전류를 앞섬 (inductive)</td></tr>
+  </table>
+</div>
+
+</body>
+</html>
