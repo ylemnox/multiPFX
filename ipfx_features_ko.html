@@ -47,6 +47,72 @@
     color: #999;
     margin-left: auto;
   }
+  .qc-box {
+    border: 0.5px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+  }
+  .qc-header {
+    background: #f5f5f3;
+    padding: 9px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #555;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-bottom: 0.5px solid #ddd;
+  }
+  .qc-body { padding: 16px 18px; }
+  .qc-body p { font-size: 13px; color: #444; line-height: 1.75; margin-bottom: 14px; }
+  .qc-body p:last-child { margin-bottom: 0; }
+  .qc-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 14px 0; }
+  .qc-step {
+    border: 0.5px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .qc-step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+  }
+  .qc-step-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #111;
+    margin-bottom: 6px;
+  }
+  .qc-step-desc { font-size: 12px; color: #555; line-height: 1.65; }
+  .qc-code {
+    background: #f7f7f5;
+    border: 0.5px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+    font-size: 11.5px;
+    color: #333;
+    margin: 12px 0;
+    line-height: 1.7;
+  }
+  .qc-result {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .qc-result-item {
+    background: #f7f7f5;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .qc-result-species { font-size: 11px; color: #888; margin-bottom: 4px; }
+  .qc-result-num { font-size: 20px; font-weight: 500; color: #111; }
+  .qc-result-unit { font-size: 11px; color: #aaa; }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -76,7 +142,56 @@
 <body>
 
 <h1>IPFX 추출 특성 설명</h1>
-<p class="subtitle">multiPFX 파이프라인에서 추출되는 44개 고유 내재적 전기생리학 특성 — 종별 분석에 사용</p>
+<p class="subtitle">multiPFX 파이프라인에서 추출되는 47개 후보 특성 — QC 필터 통과 후 종별 35–42개가 차원 축소에 사용됨</p>
+
+<div class="qc-box">
+  <div class="qc-header">QC 필터 — 차원 축소 전처리 단계</div>
+  <div class="qc-body">
+    <p>47개 후보 특성을 PCA / t-SNE / UMAP에 바로 넣지 않고, 두 단계의 결측치 기반 필터를 먼저 적용합니다. 이는 Allen Institute 참조 노트북(synphys_culture_classifier.ipynb, Cell 18)의 전처리 방식을 그대로 따른 것입니다.</p>
+
+    <div class="qc-steps">
+      <div class="qc-step">
+        <div class="qc-step-label">Pass 1 — 행(cell) 필터</div>
+        <div class="qc-step-title">특성의 50% 이상이 있는 세포만 유지</div>
+        <div class="qc-step-desc">전체 후보 특성 중 절반 이상이 NaN인 세포는 제거합니다. 예를 들어 chirp 스윕 실패 + AP 파형 추출 실패가 겹친 세포가 여기서 걸러집니다.</div>
+      </div>
+      <div class="qc-step">
+        <div class="qc-step-label">Pass 2 — 열(feature) 필터</div>
+        <div class="qc-step-title">80% 이상의 세포에서 추출된 특성만 유지</div>
+        <div class="qc-step-desc">살아남은 세포들 중 20% 초과가 NaN인 특성은 해당 종의 분석에서 제외됩니다. 종마다 데이터 커버리지가 달라 사용 특성 수가 달라지는 이유입니다.</div>
+      </div>
+    </div>
+
+    <div class="qc-code">
+# Pass 1 — 세포 필터 (행)<br>
+cell_mask = df[features].notna().mean(axis=1) &gt; 0.50<br>
+<br>
+# Pass 2 — 특성 필터 (열)<br>
+feat_mask = df[features].notna().mean(axis=0) &gt; 0.80
+    </div>
+
+    <p>두 필터 이후에도 남아 있는 소수의 NaN은 <strong>KNNImputer</strong>(k=5)로 보간합니다. 이후 <strong>RobustScaler</strong>로 정규화한 뒤 PCA / t-SNE / UMAP을 실행합니다. 즉, 임베딩 단계에는 NaN이 전혀 들어가지 않습니다.</p>
+
+    <p style="margin-bottom:8px; font-size:13px; color:#444;">QC 통과 후 종별 실제 사용 특성 수:</p>
+    <div class="qc-result">
+      <div class="qc-result-item">
+        <div class="qc-result-species">Mouse</div>
+        <div class="qc-result-num">42</div>
+        <div class="qc-result-unit">/ 47 features</div>
+      </div>
+      <div class="qc-result-item">
+        <div class="qc-result-species">NHP</div>
+        <div class="qc-result-num">39</div>
+        <div class="qc-result-unit">/ 47 features</div>
+      </div>
+      <div class="qc-result-item">
+        <div class="qc-result-species">Human</div>
+        <div class="qc-result-num">35</div>
+        <div class="qc-result-unit">/ 47 features</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="section">
   <div class="section-header">
